@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "50915132132",
+    "firebase_url": "https://talktastic-f6a65-default-rtdb.firebaseio.com",
+    "project_id": "talktastic-f6a65",
+    "storage_bucket": "talktastic-f6a65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50915132132:android:7466302319e7d36dba22f1",
+        "android_client_info": {
+          "package_name": "com.example.android.talktastic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50915132132-csap6qc123v7jsdra8s0kg65q83f1l71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_b3Ws7eCqajmaNTV-eFx_W7XyKALvypw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50915132132-csap6qc123v7jsdra8s0kg65q83f1l71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

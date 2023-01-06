@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:id="@+id/friend_constraint">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/f_profile_picture"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/f_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        tools:text="Suraj"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/f_profile_picture"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/f_message_textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/f_time_textView"
+        app:layout_constraintStart_toEndOf="@+id/f_profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/f_name_textView"
+        tools:text="Message Will appear here"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/f_date_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12/12/2001"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/f_time_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12/12/2001"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

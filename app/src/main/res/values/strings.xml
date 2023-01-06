@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TalkTactics</string>
+
+    <!--    main menu Strings-->
+    <string name="setting">Setting</string>
+    <string name="search">Search</string>
+
+    <!--    floating action button on main activity-->
+    <string name="str_floating_add">add new friend for talk</string>
+</resources>
