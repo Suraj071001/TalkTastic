@@ -9,14 +9,22 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.TalkTastic"
         tools:targetApi="31">
         <activity
+            android:name=".auth.VerifyOtp"
+            android:exported="false" />
+        <activity
+            android:name=".auth.VerifyNumber"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".MessagingActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddFriend"
             android:exported="false"
@@ -30,6 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

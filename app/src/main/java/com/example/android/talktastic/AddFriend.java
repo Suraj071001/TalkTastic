@@ -10,11 +10,13 @@ import android.widget.Toast;
 
 import com.example.android.talktastic.pojo.Friend;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddFriend extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
@@ -43,6 +45,8 @@ public class AddFriend extends AppCompatActivity {
                 String key = databaseReference.push().getKey();
                 friend.setFriend_id(key);
                 assert key != null;
+
+//                String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                 databaseReference.child("user").child(key).setValue(friend).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

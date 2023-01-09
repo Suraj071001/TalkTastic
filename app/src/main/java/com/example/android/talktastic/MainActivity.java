@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.android.talktastic.adapter.FriendsAdapter;
+import com.example.android.talktastic.auth.VerifyNumber;
 import com.example.android.talktastic.pojo.Friend;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,10 +39,14 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
     //Firebase variables
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    ValueEventListener valueEventListener;
+
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
 
     List<Friend> friendList = new ArrayList<>();
     FriendsAdapter mAdapter;
+
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,21 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
         //get database reference
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
+        mAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user == null){
+                    Intent intent = new Intent(MainActivity.this, VerifyNumber.class);
+                    startActivity(intent);
+                }else{
+                    userId = user.getUid();
+                    Log.d(TAG, "onAuthStateChanged: "+userId);
+                }
+            }
+        };
 
         //set Recycler View
 
@@ -109,7 +132,21 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        switch(id){
+            case R.id.signOut:
+                mAuth.signOut();
+                break;
+            case R.id.main_setting:
+
+                break;
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + id);
+        }
+        return true;
     }
 
     private void initView() {
@@ -122,5 +159,17 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
         Intent intent = new Intent(MainActivity.this,MessagingActivity.class);
         intent.putExtra(FRIEND_PUSH_ID,friend.getFriend_id());
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuth.removeAuthStateListener(authStateListener);
     }
 }

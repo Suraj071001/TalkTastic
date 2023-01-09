@@ -12,4 +12,9 @@
         android:id="@+id/main_search"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/signOut"
+        android:orderInCategory="101"
+        android:title="@string/sign_out"
+        app:showAsAction="never"/>
 </menu>

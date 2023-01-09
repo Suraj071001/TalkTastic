@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -100,7 +101,7 @@ public class MessagingActivity extends AppCompatActivity{
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(MessagingActivity.this, "message send", Toast.LENGTH_SHORT).show();
+                        Log.d("myTag", "onSuccess: message sent");
                         message_editText.setText(null);
                     }
                 });

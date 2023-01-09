@@ -7,4 +7,17 @@
 
     <!--    floating action button on main activity-->
     <string name="str_floating_add">add new friend for talk</string>
+    <string name="logo">Talk Tastic App logo</string>
+
+    <!--    Verify Number's Activity-->
+    <string name="VerificationNumber">We will send you <bold>One Time Password</bold>\non this Mobile Number</string>
+    <string name="India_number">+91</string>
+    <string name="generate_otp">Generate OTP</string>
+    <string name="Verify_number_textView">Verify Your Number</string>
+    <string name="country_number">change country number</string>
+    <string name="number">Number</string>
+    <string name="Verify_otp_textView">Verify OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="don_t_receive_otp">Don\'t receive OTP?</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

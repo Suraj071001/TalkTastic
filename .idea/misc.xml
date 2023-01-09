@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/drawable/background_otp.xml" value="0.2265" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/drawable/circle.xml" value="0.2385" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/drawable/oval_shape.xml" value="0.2265" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_add_friend.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_messaging.xml" value="0.1" />
+        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_messaging.xml" value="0.2" />
+        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_verify_number.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/activity_verify_otp.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/list_of_users.xml" value="0.1" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/layout/messages.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/menu/main_menu.xml" value="0.264" />
+        <entry key="..\:/Users/cs991/AndroidStudioProjects/TalkTastic/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
       </map>
     </option>
   </component>

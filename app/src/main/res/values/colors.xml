@@ -10,4 +10,5 @@
 
     <color name="colorPrimary">#00A2E8</color>
     <color name="colorVibrantPrimary">#7AD9FF</color>
+    <color name="colorBackgroundPrimary">#BAE1F3</color>
 </resources>
