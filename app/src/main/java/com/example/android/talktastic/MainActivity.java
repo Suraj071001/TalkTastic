@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.talktastic.adapter.FriendsAdapter;
 import com.example.android.talktastic.auth.VerifyNumber;
@@ -144,14 +146,15 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
         switch(id){
             case R.id.signOut:
                 mAuth.signOut();
-                break;
+                return true;
             case android.R.id.home:
                 finish();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + id);
+                return true;
+            case R.id.main_search:
+                Toast.makeText(this, "don't implemented yet", Toast.LENGTH_SHORT).show();
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
@@ -163,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
     public void onItemClick(Friend friend) {
         Intent intent = new Intent(MainActivity.this,MessagingActivity.class);
         intent.putExtra(FRIEND_ID,friend.getFriend_id());
+        intent.putExtra("friend",friend);
         startActivity(intent);
     }
 

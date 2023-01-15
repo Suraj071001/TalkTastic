@@ -46,7 +46,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         String id = friendList.get(position).getFriend_id();
         String number = friendList.get(position).getPhone_number();
 
-        holder.friendName_TextView.setText(number);
+        if(!name.equals("")){
+            holder.friendName_TextView.setText(name);
+        }else{
+            holder.friendName_TextView.setText(number);
+        }
 
         int finalPosition = position;
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {

@@ -10,11 +10,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.android.talktastic.adapter.MessagingAdapter;
+import com.example.android.talktastic.pojo.Friend;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -27,9 +31,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MessagingActivity extends AppCompatActivity{
-    EditText message_editText;
+    EditText message_editText,name_editText;
     ImageView send_button;
     RecyclerView recyclerView;
+    Button set_name;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -39,6 +44,7 @@ public class MessagingActivity extends AppCompatActivity{
 
     ArrayList<String> message_list = new ArrayList<>();
     String friend_id;
+    Friend friend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class MessagingActivity extends AppCompatActivity{
         Intent intent = getIntent();
 
         friend_id = intent.getStringExtra(MainActivity.FRIEND_ID);
+        friend = (Friend) intent.getSerializableExtra("friend");
 
         MessagingAdapter messagingAdapter = new MessagingAdapter(this,message_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
@@ -119,12 +126,40 @@ public class MessagingActivity extends AppCompatActivity{
                         });
             }
         });
+        set_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = name_editText.getText().toString();
+                friend.setName(name);
+                set_name.setVisibility(View.INVISIBLE);
+                name_editText.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_friend_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.add_name) {
+            name_editText.setVisibility(View.VISIBLE);
+            set_name.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
         message_editText = findViewById(R.id.f_message);
         send_button = findViewById(R.id.imageView);
         recyclerView = findViewById(R.id.message_recyclerView);
+        name_editText = findViewById(R.id.set_name);
+        set_name = findViewById(R.id.button3);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("user");

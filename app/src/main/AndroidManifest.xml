@@ -19,7 +19,6 @@
         <activity
             android:name=".auth.VerifyNumber"
             android:exported="false">
-
         </activity>
         <activity
             android:name=".MessagingActivity"

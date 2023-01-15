@@ -1,6 +1,12 @@
 package com.example.android.talktastic.pojo;
 
-public class Friend {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+
+public class Friend implements Serializable {
     String name;
     String phone_number;
     String friend_id;
@@ -37,4 +43,5 @@ public class Friend {
     public void setFriend_id(String friend_id) {
         this.friend_id = friend_id;
     }
+
 }

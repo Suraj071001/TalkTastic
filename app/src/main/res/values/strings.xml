@@ -25,4 +25,5 @@
     <string name="name">Name</string>
     <string name="add_friend">Add Friend</string>
     <string name="name_value">name</string>
+    <string name="add_name">Add Name</string>
 </resources>
