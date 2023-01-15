@@ -43,11 +43,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String name = friendList.get(position).getName();
-        String message = friendList.get(position).getLast_message();
         String id = friendList.get(position).getFriend_id();
+        String number = friendList.get(position).getPhone_number();
 
-        holder.friendName_TextView.setText(name);
-        holder.last_message_TextView.setText(message);
+        holder.friendName_TextView.setText(number);
 
         int finalPosition = position;
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {

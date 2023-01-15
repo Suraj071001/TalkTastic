@@ -6,18 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import com.example.android.talktastic.adapter.FriendsAdapter;
 import com.example.android.talktastic.auth.VerifyNumber;
 import com.example.android.talktastic.pojo.Friend;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,13 +28,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements FriendsAdapter.OnItemClickListener {
-    public static final String FRIEND_PUSH_ID = "friend_push_id";
+    public static final String FRIEND_ID = "friend_push_id";
     RecyclerView recyclerView;
     FloatingActionButton fab;
 
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
     FriendsAdapter mAdapter;
 
     String userId;
+
+    Boolean addAuthUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +86,11 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.setAdapter(mAdapter);
 
-
-        databaseReference.child("user").addChildEventListener(new ChildEventListener() {
+        String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        String number = mAuth.getCurrentUser().getPhoneNumber();
+        addUser(number,uid);
+        databaseReference.child("user").child(uid).addChildEventListener(new ChildEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Log.d(TAG, "onChildAdded: "+snapshot.getKey());
@@ -122,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -136,9 +144,6 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
         switch(id){
             case R.id.signOut:
                 mAuth.signOut();
-                break;
-            case R.id.main_setting:
-
                 break;
             case android.R.id.home:
                 finish();
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
     @Override
     public void onItemClick(Friend friend) {
         Intent intent = new Intent(MainActivity.this,MessagingActivity.class);
-        intent.putExtra(FRIEND_PUSH_ID,friend.getFriend_id());
+        intent.putExtra(FRIEND_ID,friend.getFriend_id());
         startActivity(intent);
     }
 
@@ -171,5 +176,24 @@ public class MainActivity extends AppCompatActivity implements FriendsAdapter.On
     protected void onPause() {
         super.onPause();
         mAuth.removeAuthStateListener(authStateListener);
+    }
+
+    private void addUser(String phone,String userId){
+        if(!addAuthUser){
+            Task<Void> uploadTask = databaseReference.child("all_user").child(phone).setValue(userId);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d("myTag", "onSuccess: user added successfully");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("myTag", "onFailure: "+e);
+                }
+            });
+            addAuthUser = true;
+        }
     }
 }

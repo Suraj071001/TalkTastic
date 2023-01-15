@@ -2,12 +2,12 @@ package com.example.android.talktastic.pojo;
 
 public class Friend {
     String name;
-    String last_message;
+    String phone_number;
     String friend_id;
 
-    public Friend(String name,String message){
+    public Friend(String name,String phone_number){
         this.name = name;
-        this.last_message = message;
+        this.phone_number = phone_number;
     }
 
     public Friend() {
@@ -22,12 +22,12 @@ public class Friend {
         this.name = name;
     }
 
-    public String getLast_message() {
-        return last_message;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setLast_message(String last_message) {
-        this.last_message = last_message;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getFriend_id() {

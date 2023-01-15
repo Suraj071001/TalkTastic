@@ -13,10 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.android.talktastic.adapter.MessagingAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Objects;
 
 public class MessagingActivity extends AppCompatActivity{
     EditText message_editText;
@@ -33,11 +33,12 @@ public class MessagingActivity extends AppCompatActivity{
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
 
     ChildEventListener childEventListener;
 
     ArrayList<String> message_list = new ArrayList<>();
-    String key;
+    String friend_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +49,13 @@ public class MessagingActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
 
-        key = intent.getStringExtra(MainActivity.FRIEND_PUSH_ID);
+        friend_id = intent.getStringExtra(MainActivity.FRIEND_ID);
 
         MessagingAdapter messagingAdapter = new MessagingAdapter(this,message_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.setAdapter(messagingAdapter);
+
+        String uid = Objects.requireNonNull(mAuth.getUid());
 
         childEventListener = new ChildEventListener() {
             @SuppressLint("NotifyDataSetChanged")
@@ -88,7 +91,7 @@ public class MessagingActivity extends AppCompatActivity{
             }
         };
 
-        databaseReference.child("user_message").child(key).addChildEventListener(childEventListener);
+        databaseReference.child(uid).child(friend_id).child("message").addChildEventListener(childEventListener);
 
 
         send_button.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +100,7 @@ public class MessagingActivity extends AppCompatActivity{
 
                 String message = message_editText.getText().toString();
 
-                databaseReference.child("user_message").child(key).push().setValue(message)
+                databaseReference.child(uid).child(friend_id).child("message").push().setValue(message)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -105,6 +108,15 @@ public class MessagingActivity extends AppCompatActivity{
                         message_editText.setText(null);
                     }
                 });
+
+                databaseReference.child(friend_id).child(uid).child("message").push().setValue(message)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d("myTag","onSuccess : message sent");
+                                message_editText.setText(null);
+                            }
+                        });
             }
         });
     }
@@ -115,7 +127,8 @@ public class MessagingActivity extends AppCompatActivity{
         recyclerView = findViewById(R.id.message_recyclerView);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference("user");
+        mAuth = FirebaseAuth.getInstance();
 
     }
 }

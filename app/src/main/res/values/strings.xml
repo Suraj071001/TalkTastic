@@ -20,4 +20,9 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="don_t_receive_otp">Don\'t receive OTP?</string>
     <string name="sign_out">Sign Out</string>
+    <string name="phone_number">phone number</string>
+    <string name="phone_number_title">Phone Number</string>
+    <string name="name">Name</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="name_value">name</string>
 </resources>
